@@ -1,7 +1,11 @@
+
 {
   "issuers": [
     {
       "credential_issuer": "Mosip",
+      "issuer_id": "Mosip",
+      "credential_issuer_host": "https://${mosip.esignet.host}",
+      "wellknown_endpoint": "https://${mosip.esignet.host}/.well-known/openid-credential-issuer?version=v11",
       "display": [
         {
           "name": "National Identity Department",
@@ -20,7 +24,7 @@
             "alt_text": "شعار موسيب"
           },
           "title": "دائرة الهوية الوطنية",
-          "description": "قم بتنزيل بيانات اعتماد الهوية الوطنية / التأسيسية MOSIP" ,
+          "description": "قم بتنزيل بيانات اعتماد الهوية الوطنية / التأسيسية MOSIP",
           "language": "ar"
         },
         {
@@ -30,7 +34,7 @@
             "alt_text": "मोसिप लोगो"
           },
           "title": "राष्ट्रीय पहचान विभाग",
-          "description":"MOSIP नेशनल/फाउंडेशनल आइडेंटिटी क्रेडेंशियल डाउनलोड करेंं",
+          "description": "MOSIP नेशनल/फाउंडेशनल आइडेंटिटी क्रेडेंशियल डाउनलोड करेंं",
           "language": "hi"
         },
         {
@@ -50,7 +54,7 @@
             "alt_text": "mosip லோகோ"
           },
           "title": "தேசிய அடையாளத் துறை",
-          "description":"MOSIP தேசிய / அடிப்படை அடையாளச் சான்றிதழைப் பதிவிறக்கவும்",
+          "description": "MOSIP தேசிய / அடிப்படை அடையாளச் சான்றிதழைப் பதிவிறக்கவும்",
           "language": "ta"
         },
         {
@@ -60,15 +64,19 @@
             "alt_text": "logo ng mosip"
           },
           "title": "National Identity Department",
-          "description":"I-download ang MOSIP National / Foundational Identity Credential",
+          "description": "I-download ang MOSIP National / Foundational Identity Credential",
           "language": "fil"
         }
       ],
       "protocol": "OpenId4VCI",
       "client_id": "${mimoto.oidc.partner.clientid}",
       "client_alias": "mpartner-default-mimotooidc",
-      "scopes_supported": ["mosip_identity_vc_ldp"],
-     "additional_headers": { "Accept": "application/json" },
+      "scopes_supported": [
+        "mosip_identity_vc_ldp"
+      ],
+      "additional_headers": {
+        "Accept": "application/json"
+      },
       ".well-known": "https://${mosip.esignet.host}/.well-known/openid-credential-issuer?version=v11",
       "redirect_uri": "io.mosip.residentapp.inji://oauthredirect",
       "authorization_endpoint": "https://${mosip.esignet.host}/authorize",
@@ -76,7 +84,10 @@
       "token_endpoint": "https://${mosip.api.public.host}/residentmobileapp/get-token/Mosip",
       "proxy_token_endpoint": "https://${mosip.esignet.host}/v1/esignet/oauth/v2/token",
       "credential_endpoint": "https://${mosip.esignet.host}/v1/esignet/vci/credential",
-      "credential_type": ["VerifiableCredential", "MOSIPVerifiableCredential"],
+      "credential_type": [
+        "VerifiableCredential",
+        "MOSIPVerifiableCredential"
+      ],
       "credential_audience": "https://${mosip.esignet.host}",
       "enabled": "true"
     }
