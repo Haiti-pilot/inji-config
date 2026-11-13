@@ -1,12 +1,12 @@
 {
   "verifiers": [
     {
-      "client_id": "${mosip.injiverify.host}/",
+      "client_id": "injiverify.haiti-pilot.mosip.net/",
       "redirect_uris": [
-        "https://${mosip.injiverify.host}/"
+        "https://injiverify.haiti-pilot.mosip.net/"
       ],
       "response_uris": [
-        "https://${mosip.injiverify.host}/v1/verify/vp-submission/direct-post"
+        "https://injiverify.haiti-pilot.mosip.net/v1/verify/vp-submission/direct-post"
       ],
       "allow_unsigned_request": true
     },
