@@ -1,18 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="350" height="{{wallet/cardHeight}}" viewBox="0 0 350 {{wallet/cardHeight}}" id="haiti-premium-v8">
+<svg xmlns="http://www.w3.org/2000/svg" width="350" height="580" viewBox="0 0 350 580" id="haiti-premium-v9">
 <!-- Vector credential template. Fields and portrait are filled from the verified VC by the companion renderer.
      Blurred background uses exactly the 3 ellipses and colors supplied by the user.
      Original ONI logo from user image, traced as vector paths at 256px for resolution-independent scaling. -->
 <defs>
-  <clipPath id="ht-outer-clip"><rect x="2" y="2" width="346" height="{{wallet/innerHeight}}" rx="16"/></clipPath>
+  <clipPath id="ht-outer-clip"><rect x="2" y="2" width="346" height="578" rx="16" id="wallet-clip-rect"/></clipPath>
   <clipPath id="ht-photo-clip"><rect x="23" y="163" width="100" height="132" rx="10"/></clipPath>
   <filter id="bbblurry-filter" x="-100%" y="-100%" width="400%" height="400%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
     <feGaussianBlur stdDeviation="40" x="0%" y="0%" width="100%" height="100%" in="SourceGraphic" edgeMode="none" result="blur"/>
   </filter>
 </defs>
-<rect x="1.3" y="1.3" width="347.4" height="{{wallet/innerHeight}}" rx="16.6" fill="#FFFFFF" stroke="#E2D7DF" stroke-width="1.35"/>
+<rect x="1.3" y="1.3" width="347.4" height="578" rx="16.6" fill="#FFFFFF" stroke="#E2D7DF" stroke-width="1.35" id="wallet-outer-border"/>
 <g clip-path="url(#ht-outer-clip)">
   <!-- User's exact supplied SVG background, scaled to the current credential height. -->
-  <svg x="2" y="2" width="346" height="{{wallet/innerHeight}}" viewBox="0 0 800 800" preserveAspectRatio="none">
+  <svg x="2" y="2" width="346" height="578" viewBox="0 0 800 800" preserveAspectRatio="none" id="wallet-background">
     <g filter="url(#bbblurry-filter)">
       <ellipse rx="150" ry="150" cx="291.27186326434065" cy="286.2401525680016" fill="hsl(37, 99%, 67%)"/>
       <ellipse rx="150" ry="150" cx="461.9892783831471" cy="305.3141013710849" fill="hsl(316, 73%, 52%)"/>
@@ -20,7 +20,7 @@
     </g>
   </svg>
   <!-- Pale matte translucent overlay keeps text readable without introducing any other background graphic. -->
-  <rect x="2" y="2" width="346" height="{{wallet/innerHeight}}" fill="#FFFFFF" fill-opacity=".42"/>
+  <rect x="2" y="2" width="346" height="578" fill="#FFFFFF" fill-opacity=".42" id="wallet-matte-overlay"/>
   <!-- Clean premium header: ONI only at upper left, no logo or flag on the right. -->
   <rect x="2" y="2" width="346" height="130" fill="#FFFFFF" fill-opacity=".92"/>
   <path d="M13 130 H338" stroke="#E2C2D5" stroke-width=".9"/>
@@ -47,16 +47,12 @@
   <!-- Credential photo is injected at render time; leave neutral silhouette when absent. -->
   <rect x="19" y="159" width="108" height="140" rx="12" fill="#FFFDFC" stroke="#DDCCD9" stroke-width="1.2"/>
   <rect x="23" y="163" width="100" height="132" rx="10" fill="#ECE8EF"/>
-  <g clip-path="url(#ht-photo-clip)">
-    <circle cx="73" cy="210" r="20" fill="#C7BCC9"/>
-    <path d="M33 293 Q37 248 73 247 Q109 248 114 293Z" fill="#C7BCC9"/>
-    {{wallet/photoSvg}}
-  </g>
+  <g clip-path="url(#ht-photo-clip)"><circle cx="73" cy="210" r="20" fill="#C7BCC9"/><path d="M33 293 Q37 248 73 247 Q109 248 114 293Z" fill="#C7BCC9"/><g id="wallet-photo-slot"/></g>
   <rect x="23" y="163" width="100" height="132" rx="10" fill="none" stroke="#D8CBD9" stroke-width=".8"/>
-  <g id="ht-vc-claims">{{wallet/claimRowsSvg}}</g>
-  <path d="M19 {{wallet/footerRuleY}}H331" stroke="#DDBFCE" stroke-width=".8"/>
-  <text x="175" y="{{wallet/footerY}}" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#514F68" letter-spacing=".38">HAÏTI  •  JUSTIFICATIF NUMÉRIQUE</text>
+  <g id="wallet-claims-slot"/>
+  <path d="M19 520H331" stroke="#DDBFCE" stroke-width=".8" id="wallet-footer-rule"/>
+  <text x="175" y="542" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#514F68" letter-spacing=".38" id="wallet-footer-text">HAÏTI  •  JUSTIFICATIF NUMÉRIQUE</text>
 </g>
-<path d="M19 {{wallet/flagY}}H175" stroke="#1648AF" stroke-width="3.2" stroke-linecap="round"/>
-<path d="M175 {{wallet/flagY}}H331" stroke="#D52C55" stroke-width="3.2" stroke-linecap="round"/>
+<path d="M19 559H175" stroke="#1648AF" stroke-width="3.2" stroke-linecap="round" id="wallet-flag-blue"/>
+<path d="M175 559H331" stroke="#D52C55" stroke-width="3.2" stroke-linecap="round" id="wallet-flag-red"/>
 </svg>
