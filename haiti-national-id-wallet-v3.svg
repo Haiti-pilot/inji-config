@@ -89,8 +89,8 @@
     <line x1="185" y1="492" x2="322" y2="492" stroke="#E7DCE4"/>
 
     <text x="28" y="522" class="label">Localité</text>
-    <text x="28" y="544" class="valueSmall">{{vc/locality/1/34}}</text>
-    <text x="28" y="562" class="valueSmall">{{vc/locality/2/34}}</text>
+    <text x="28" y="544" class="valueSmall">{{vc/localite/1/34}}</text>
+    <text x="28" y="562" class="valueSmall">{{vc/localite/2/34}}</text>
     <line x1="28" y1="576" x2="322" y2="576" stroke="#E7DCE4"/>
 
     <text x="175" y="611" text-anchor="middle" class="footer">DOCUMENT NUMÉRIQUE • HAÏTI</text>
