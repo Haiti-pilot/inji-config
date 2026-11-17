@@ -8,11 +8,13 @@ The Haiti Wallet downloads `https://raw.githubusercontent.com/Manas0606/inji-con
 
 **Do not paste this v3 SVG directly into Certify's `rendering_template` table:** the dynamic `wallet/*` placeholders are specific to the Haiti application, not the generic SVG-Mustache renderer. No DB change is required for the current GitHub SVG.
 
-## Verified Inji Certify database schema
+## Haiti current deployment: no Certify SVG database integration
 
-`credential_config.vc_template` contains the Base64-encoded issuance Velocity template. It controls what ends up in the signed VC, not the SVG appearance. `rendering_template(id, template, cr_dtimes, upd_dtimes)` is a separate optional SVG store for the VC's signed `renderMethod`.
+The Haiti Wallet fetches the versioned SVG from `inji-config` and populates it locally. The `rendering_template` table is **not used** by this Haiti-specific rendering path. The obsolete `rendering-template-id` property and its unused SQL/SVG files were reverted on 17 November 2026.
 
-Run the following **read-only** SQL in the Haiti `inji_certify` PostgreSQL database:
+Inji Certify continues using `credential_config.vc_template` (Base64-encoded Velocity) to issue and sign credential claims, including UIN/VID when present in authorized IDA data. That issuance template is **not** the Wallet visual SVG.
+
+Read-only check of active issuance configuration:
 
 ```sql
 SELECT config_id, status, scope, credential_format,
@@ -20,39 +22,9 @@ SELECT config_id, status, scope, credential_format,
        credential_subject, qr_settings, qr_signature_algo
 FROM credential_config
 WHERE scope = 'mosip_identity_vc_ldp';
-
-WITH decoded AS (
-  SELECT config_id, status,
-         convert_from(decode(vc_template, 'base64'), 'UTF8') AS body
-  FROM credential_config
-  WHERE scope = 'mosip_identity_vc_ldp'
-)
-SELECT config_id, status,
-       body ~* '"(UIN|VID|individualId|mosipIndividualId)"' AS maps_uin_vid,
-       body ~* '"(fullName|firstName|lastName)"' AS maps_name,
-       body ~* '"(section|communalSection)"' AS maps_section,
-       body ~* '"(localite|locality)"' AS maps_localite,
-       body ~* '"claim169"' AS maps_claim169,
-       body ~* '"renderMethod"' AS maps_render_method
-FROM decoded;
-
-SELECT id, length(template) AS svg_length, upd_dtimes
-FROM rendering_template ORDER BY id;
 ```
 
-This checks the *issuance configuration*, not whether the identity data provider actually returns each field. Confirm field names in a newly issued, signature-verified VC with identifying values masked before changing anything.
-
-## When DB-backed SVG is appropriate
-
-Manas Wallet invokes its official native SVG renderer only when an LDP VC advertises `renderMethod`. This is optional. To adopt it:
-
-1. Prepare an **immutable renderer-compatible SVG**, using supported `{{credentialSubject/field}}` placeholders; not the app-specific `{{wallet/*}}` format.
-2. Register the SVG via the supported Certify rendering-template workflow or carefully reviewed DB migration.
-3. Add the corresponding `renderMethod` URL and correct `digestMultibase` to the signed VC issuance Velocity template (or configure the Certify rendering-template ID so Certify supplies the digest).
-4. Reissue the VC. Existing credentials do not acquire new signed claims or a renderMethod after issuance.
-5. Use the Wallet's native `VcRenderer` when `renderMethod` exists, with a fallback.
-
-Reference: `Haiti-pilot/inji-certify/docs/Rendering-Template.md`. A pod restart may be needed only for a changed server-side property/deployment, not for a GitHub SVG change.
+Do not delete or alter `credential_config` as part of removing the unused SVG database rendering setup.
 
 ## Why UIN/VID or QR may still be absent
 
